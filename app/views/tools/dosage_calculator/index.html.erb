@@ -1,0 +1,72 @@
+<!-- app/views/tools/dosage_calculator.html.erb -->
+
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-emerald-600 to-teal-700 text-white pt-32 pb-20">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
+      ⚖️ Dosage Calculator
+    </h1>
+    <p class="text-lg md:text-xl mb-8 text-slate-100">
+      Prototype only — not for clinical use.
+    </p>
+  </div>
+</section>
+
+<!-- Forms -->
+<section class="py-16 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-6 space-y-12">
+    
+    <!-- Solid Form -->
+    <div class="bg-white shadow rounded-2xl p-8">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">💊 Solid Dosage (Tablet/Capsule)</h2>
+
+      <%= form_with url: calculate_solid_tools_dosage_calculator_index_path, data: { turbo_stream: true }, class: "space-y-4" do |f| %>
+        <div>
+          <%= f.label :weight, "Patient Weight (kg)", class: "block text-gray-700 font-medium mb-1" %>
+          <%= f.number_field :weight, step: 0.5, value: 25.0, class: "w-full border rounded-lg px-4 py-2" %>
+        </div>
+
+        <div>
+          <%= f.label :dosage_per_kg, "Dose per mg/kg", class: "block text-gray-700 font-medium mb-1" %>
+          <%= f.number_field :dosage_per_kg, step: 0.5, value: 15.0, class: "w-full border rounded-lg px-4 py-2" %>
+        </div>
+
+        <div>
+          <%= f.label :tablet_strength, "Tablet Strength (mg)", class: "block text-gray-700 font-medium mb-1" %>
+          <%= f.number_field :tablet_strength, step: 1, value: 250.0, class: "w-full border rounded-lg px-4 py-2" %>
+        </div>
+
+        <div>
+          <%= f.label :frequency, "Frequency", class: "block text-gray-700 font-medium mb-1" %>
+          <%= f.select :frequency, ["Once/day", "Twice/day", "Three times/day", "Four times/day"], {}, class: "w-full border rounded-lg px-4 py-2" %>
+        </div>
+
+        <%= f.submit "Calculate Solid Dose", class: "px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-500 transition" %>
+      <% end %>
+
+      <div id="solid_result" class="mt-6 text-gray-700"></div>
+    </div>
+
+    <!-- Liquid Form -->
+    <div class="bg-white shadow rounded-2xl p-8">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">🧴 Liquid Dosage (Syrup)</h2>
+
+      <%= form_with url: calculate_liquid_tools_dosage_calculator_index_path, data: { turbo_stream: true }, class: "space-y-4" do |f| %>
+        <div>
+          <%= f.label :dosage_mg, "Medicine Concentration (mg/ml)", class: "block text-gray-700 font-medium mb-1" %>
+          <%= f.number_field :dosage_mg, step: 1, value: 0, class: "w-full border rounded-lg px-4 py-2" %>
+        </div>
+
+        <div>
+          <%= f.label :concentration, "Liquid Dose (ml)", class: "block text-gray-700 font-medium mb-1" %>
+          <%= f.number_field :concentration, step: 1, value: 0, class: "w-full border rounded-lg px-4 py-2" %>
+        </div>
+
+        <%= f.submit "Calculate Liquid Dose", class: "px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-500 transition" %>
+      <% end %>
+
+      <div id="liquid_result" class="mt-6 text-gray-700"></div>
+    </div>
+
+  </div>
+</section>
